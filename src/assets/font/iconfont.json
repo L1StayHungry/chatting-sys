@@ -20,6 +20,13 @@
       "unicode_decimal": 59079
     },
     {
+      "icon_id": "670205",
+      "name": "YDUI-正确(空心)",
+      "font_class": "yduizhengquekongxin",
+      "unicode": "e6a8",
+      "unicode_decimal": 59048
+    },
+    {
       "icon_id": "839006",
       "name": "加",
       "font_class": "jia",
@@ -39,6 +46,13 @@
       "font_class": "wenjian",
       "unicode": "e662",
       "unicode_decimal": 58978
+    },
+    {
+      "icon_id": "7299460",
+      "name": "空心 勾",
+      "font_class": "kongxingou",
+      "unicode": "e789",
+      "unicode_decimal": 59273
     },
     {
       "icon_id": "7738015",

@@ -2,18 +2,18 @@
   <div class="friend">
     <span
         style="display: inline-block;width: 100%;color: #cccccc;text-align: left;margin-left: 8px;">{{listName}}</span>
-    <friend-cell v-for="friend in listArr" :friend="friend" :key="friend.id"></friend-cell>
+    <left-list-cell @transferMsg="ttt" v-for="friend in listArr" :friend="friend" :key="friend.id"></left-list-cell>
   </div>
 </template>
 <script>
-	import FriendCell from './FriendCell'
+	import LeftListCell from "./LeftListCell";
 
 	export default {
 		props: {
 			friendGroup: Object
 		},
 		components: {
-			FriendCell
+			LeftListCell
 		},
 		data() {
 			return {
@@ -25,8 +25,8 @@
 			hello: function () {
 				console.log('hello world!')
 			},
-			ttt: function () {
-
+			ttt: function (id) {
+        this.$emit('transferMsg1',id)
 			}
 		},
 		computed: {}
