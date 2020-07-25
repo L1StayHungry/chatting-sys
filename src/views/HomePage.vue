@@ -3,7 +3,8 @@
     <!--        左侧栏-->
     <div class="fl wp15 hInherit relative" style="background-color: rgb(42,42,42);">
       <ul id="ul1">
-        <li style="margin-top:20px"><a><img width="60" :src="img" alt="无法显示" style="font-size: 4px"></a></li>
+        <!-- 个人头像 -->
+        <li style="margin-top:20px"><a><img width="60" :src="get_user_avatar" alt="无法显示" style="font-size: 4px"></a></li>
 
         <li style="margin-top:20px">
           <a @click="toChatList()">
@@ -21,6 +22,7 @@
           </a>
         </li>
         <li style="margin-top:20px">
+          <a @click="chat"></a>
           <span class="iconfont icon-wenjian"></span></li>
         <li style="margin-top:20px">
           <span class="iconfont icon-kanyikan"></span></li>
@@ -59,14 +61,19 @@
 			}
 		},
 		computed: {
-			img: function () {
-				console.log(this.mine.avatar)
+			get_user_avatar: function () {
+				// console.log(this.mine.avatar)
 				return 'http://localhost:8080' + this.mine.avatar
 			}
 		},
 		methods: {
 			chat: function () {
+        
+            console.log('vuex存储的信息：');
+            
+            // window.console.log(this.$store.state.userInfo);
 
+            console.log(this.mine)
 			},
 			toImgMessage: function () {
 
@@ -81,18 +88,25 @@
 
 			},
 			getUserMessage: function () {
+        
+        // this.mine = this.$store.getters.userInfoMine;
 				let url = 'http://localhost:8080/user/mine?userid=' + sessionStorage.getItem('userId')
-				$.get(url, (data, status) => {
-					let dataJson = JSON.parse(data)
+        // console.log(sessionStorage.getItem('userId'));
+        
+        $.get(url, (data, status) => {
+          let dataJson = data.data;
 					if (dataJson.code == 0) {
-						this.mine = dataJson.data.mine
+            // this.mine = data.data.mineResult.mine
+						this.$store.commit('setUserInfo',dataJson.mineResult)
+            // console.log(this.$store.state.userInfo);
+            this.mine = this.$store.getters.userInfoMine;
 					}
 				})
 			}
 		},
 		mounted() {
-			this.getUserMessage()
-		}
+      this.getUserMessage()
+    },
 	}
 </script>
 <style>

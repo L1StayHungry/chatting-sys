@@ -67,7 +67,6 @@
 				console.log(this.url)
 
 				$.post(this.url, this.user, (data, status) => {
-					console.log(status)
 					if (data == 1) {
 						sessionStorage.setItem('isLogin', '1')
 						sessionStorage.setItem('userId', this.user.id)

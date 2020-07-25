@@ -1,3 +1,6 @@
+/*主信息栏（含信息列表及具体聊天界面） 
+###### Fri Jul 24 11:46:52 CST 2020
+ */
 <template>
   <div>
     <!--        中间栏-->
@@ -28,6 +31,7 @@
           <img :src="'http://localhost:8080'+item.avatar" width="60"
                style="position: absolute;left: 10px;top: 10px;"
                alt="加载失败">
+					<!-- 红点 -->
           <span
               style="position: absolute;
                           background-color: red;
@@ -44,7 +48,7 @@
              v-for="item of groupMessage" :key="item.id+1">
           <img :src="'http://localhost:8080'+item.avatar" width="60"
                style="position: absolute;left: 10px;top: 10px;"
-               alt="加载失败">
+               alt="加载失败2">
           <span
               style="position: absolute;
                           background-color: red;
@@ -99,7 +103,7 @@
       </div>
     </div>
     <!--    弹出添加群的框框-->
-    <el-dialog
+    <!-- <el-dialog
         id="el-dialog1"
         width="80%"
         :visible="elDialogVisiable">
@@ -126,7 +130,7 @@
         <el-button type="primary" @click="elDialogVisiable = false">确 定</el-button>
       </span>
       <div class="clear"></div>
-    </el-dialog>
+    </el-dialog> -->
   </div>
 </template>
 <script>
@@ -267,12 +271,9 @@
 		},
 		methods: {
 			wsConnect: function () {
-				console.log('test 初始化')
-				console.log(this.ws)
 				if (this.ws == null) {
 					this.ws = new WebSocket('ws://127.0.0.1:8082/ws')
 					let ws = this.ws
-					console.log('进入测试')
 					ws.onopen = function () {
 						let msg = {
 							type: "connect",
@@ -283,13 +284,14 @@
 						msg.dataMap.userid = sessionStorage.getItem('userId')
 						let msgJson = JSON.stringify(msg);
 						ws.send(msgJson)
-						console.log('连接成功')
 					}
 
 					ws.onmessage = (event) => {
 						window.console.log('onmessage')
 						//接收的数据处理
 						let msg = JSON.parse(event.data)
+						console.log('msg');
+						
 						window.console.log(msg)
 						let received_msg = {}
 						if (msg.type == 'singleChat') {
@@ -310,17 +312,6 @@
 							received_msg.messageType = false
 							received_msg.id = msg.dataMap.fromid
 							received_msg.groupId = msg.dataMap.groupid
-
-							//  获取群组成员信息
-							// let url = 'http://localhost:8080/user/mermber?groupid=' + msg.dataMap.groupid
-							// $.get(url,(data,status) => {
-							//     let dataObject = JSON.parse(data)
-							//     console.log(dataObject)
-							//     this.groupMemberMessage = dataObject.data.list
-							//     console.log('ws群组获取成员信息')
-							//     console.log(this.groupMemberMessage)
-							// })
-
 							received_msg.context = msg.dataMap.context
 							window.console.log(this.groupMemberMessage)
 							for (let item of this.groupMemberMessage) {
@@ -391,17 +382,16 @@
 				this.sendMessageToWS.dataMap.context = ''
 			},
 			getUserAndGroupMessage: function () {
-				console.log('consdofisfsdlfkjsdlkfj+=============测试')
 				let url = 'http://localhost:8080/user/mine?userid=' + sessionStorage.getItem('userId')
 				$.get(url, (data, status) => {
-					let dataJson = JSON.parse(data)
+					let dataJson = data.data
 					if (dataJson.code == 0) {
 						//获取用户信息
-						for (let item of dataJson.data.friend) {
-							this.userMessage = this.userMessage.concat(item.list)
+						for (let item of dataJson.mineResult.friend) {
+							this.userMessage = this.userMessage.concat(item.users)
 						}
 						//获取群组信息
-						for (let item of dataJson.data.group) {
+						for (let item of dataJson.mineResult.group) {
 							console.log('groupMessage')
 							console.log(item)
 							this.groupMessage = this.groupMessage.concat(item)
@@ -409,11 +399,9 @@
 						//删除第一个模板元素
 						this.userMessage.shift()
 						this.groupMessage.shift()
-						console.log('this.groupMessage')
-						console.log(this.groupMessage)
 						// console.log('好有对象'+this.userMessage)
 						//获取本人信息
-						this.myMessage = dataJson.data.mine
+						this.myMessage = dataJson.mineResult.mine
 					}
 				})
 			},
@@ -425,9 +413,6 @@
 					//初始化receivedMessage
 					if (item.id == id) {
 						this.toUserMessage = item
-						this.receivedMessage.avatar = item.avatar
-						this.receivedMessage.id = item.id
-						this.receivedMessage.username = item.username
 					}
 
 				}
@@ -447,9 +432,8 @@
 				//  获取群组成员信息
 				let url = 'http://localhost:8080/user/mermber?groupid=' + id
 				$.get(url, (data, status) => {
-					let dataObject = JSON.parse(data)
-					console.log(dataObject)
-					this.groupMemberMessage = dataObject.data.list
+					let dataObject = data.data
+					this.groupMemberMessage = dataObject.list
 				})
 				this.idGroupLabel = id //设置id
 				//获取点击后的群id 初始化发送群组数据
@@ -470,18 +454,20 @@
 				}
 				console.log(this.sendGroupMessage)
 			},
-			getFriendsMessage: function () {
-				this.elDialogVisiable = true
+
+			getFriendsMessage() {
 				let url = 'http://localhost:8080/user/mine?userid=' + sessionStorage.getItem('userId')
+
+				// this.elDialogVisiable = true
 				$.get(url, (data, status) => {
-					let dataJson = JSON.parse(data)
-					if (dataJson.code == 0) {
-						this.friends = dataJson.data.friend
-						console.log(this.friends)
-						for (let item of this.friends) {
-							for (let f of item.list) {
-								this.friendsNotGroup = this.friendsNotGroup.concat(f)
-							}
+          let dataJson = data.data.mineResult;
+					this.friends = dataJson.friend;
+					// console.log(this.friends)
+					for (let item of this.friends) {
+						for (let f of item.users) {
+							console.log('friends+'+f);
+							
+							this.friendsNotGroup = this.friendsNotGroup.concat(f)
 						}
 					}
 				})
@@ -515,9 +501,11 @@
 			}
 		},
 		mounted() {
+			
 			this.wsConnect();
 			this.getUserAndGroupMessage();
-			this.getFriendsMessage()
+			this.getFriendsMessage();
+			
 		}
 	}
 </script>
