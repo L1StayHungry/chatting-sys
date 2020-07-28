@@ -17,8 +17,8 @@
 		},
 		data() {
 			return {
-				listName: this.friendGroup.groupname,
-				listArr: this.friendGroup.list
+				listName: this.friendGroup.fzGroupname,
+				listArr: this.friendGroup.users,
 			}
 		},
 		methods: {

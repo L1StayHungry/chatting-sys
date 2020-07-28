@@ -25,7 +25,7 @@ const routes = [
 			},
 			{
 				path: 'FriendList',
-				component: () => import('../components/FriendList')
+				component: () => import('@/components/contacts/FriendList')
 			}
 		]
 	}
