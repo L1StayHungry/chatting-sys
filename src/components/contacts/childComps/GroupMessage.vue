@@ -40,7 +40,7 @@
 <style>
   .groupMessage {
     height: 500px;
-    width: 400px;
+    width: 100%;
     background-color: rgb(245, 245, 245);
   }
 

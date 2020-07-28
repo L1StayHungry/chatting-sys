@@ -1,5 +1,5 @@
 <template>
-  <div class="w800 h500 fl relative homePage" style="background-color: #ffffff;border: 1px solid #cccccc">
+  <div class="homePage">
     <!--左侧导航栏-->
     <main-tab-bar></main-tab-bar>
 
@@ -17,5 +17,17 @@
     }
 	}
 </script>
-<style>
+<style scoped>
+  .homePage {
+    width: 800px;
+    height: 500px;
+    /* float: left; */
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    /* border: 1px solid #cccccc; */
+  }
 </style>

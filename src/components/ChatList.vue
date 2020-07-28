@@ -4,27 +4,12 @@
 <template>
   <div>
     <!--        中间栏-->
-    <div class="fl wp35 hInherit" style="background-color: rgb(233,233,233)">
-      <!--            搜索栏-->
-      <div id="search"
-           style="position: relative;height: 100px;width: 100%;">
-        <el-input type="text"
-                  style="width: 200px;
-                          position: absolute;
-                          left: 45%;top: 50%;
-                          background-color: rgb(219,219,219);
-                          transform: translate(-50%,-50%);"
-                  placeholder="未开发"></el-input>
-        <span @click="getFriendsMessage"
-              id="icon-my-jia"
-              class="iconfont icon-jia"
-        >
-
-                </span>
-
-      </div>
+    <div class="fl wp30 hInherit" style="background-color: rgb(233,233,233)">
+      <!--搜索栏-->
+      <search></search>
+      
       <!--            聊天各种对话信息栏-->
-      <div id="chatSlider" style="height: 400px;width: 100%;overflow: scroll;">
+      <div id="chatSlider" style="height: 430px;width: 100%;overflow: scroll;">
         <!--                好友聊天对话单元 -->
         <div @click="changeChat($event)" :id="item.id" style="width: 100%;height: 75px;position: relative;"
              v-for="item of userMessage" :key="item.id">
@@ -63,13 +48,21 @@
       </div>
     </div>
     <!--        聊天框-->
-    <div class="fl wp50 hInherit">
+    <div class="fl wp63 hInherit">
       <!--            聊天框头-->
-      <div style="width: 100%;height: 100px;position: relative;">
+			<top-name>
+				<div slot="left">
+					<h4>{{toUserMessage.username}}</h4>
+				</div>
+				<div slot="right">
+					<span id="icon-my-gengduo" class="iconfont icon-gengduo1"></span>
+				</div>
+			</top-name>
+      <!-- <div style="width: 100%;height: 100px;position: relative;">
         <h1 style="position: absolute;left: 20px;top:40px">{{toUserMessage.username}}</h1>
         <span id="icon-my-gengduo"
               class="iconfont icon-gengduo1"></span>
-      </div>
+      </div> -->
       <!--            聊天对话框-->
       <div class="chatContext"
            style="width: 100%;
@@ -138,9 +131,14 @@
 	import ChatOthers from "./ChatComponents/ChatOthers";
 	import Test from "./ChatComponents/Test";
 	import ChatModule from "./ChatComponents/ChatModule";
-	import ChatGroupModule from './ChatComponents/ChatGroupModule'
+	import ChatGroupModule from './ChatComponents/ChatGroupModule';
 	import LeftList from "./AddGroupComponents/LeftList";
-	import RightCell from "./AddGroupComponents/RightCell"
+	import RightCell from "./AddGroupComponents/RightCell";
+
+	import TopName from "@/components/commen/right_part/TopName";
+	import Search from "@/components/commen/search/Search"
+	
+
 
 	export default {
 		components: {
@@ -150,7 +148,9 @@
 			ChatModule,
 			ChatGroupModule,
 			LeftList,
-			RightCell
+			RightCell,
+			TopName,//右上侧用户名/群聊名
+			Search,//搜索框
 		},
 		props: {},
 		data() {
@@ -392,8 +392,8 @@
 						}
 						//获取群组信息
 						for (let item of dataJson.mineResult.group) {
-							console.log('groupMessage')
-							console.log(item)
+							// console.log('groupMessage')
+							// console.log(item)
 							this.groupMessage = this.groupMessage.concat(item)
 						}
 						//删除第一个模板元素
@@ -433,6 +433,8 @@
 				let url = 'http://localhost:8080/user/mermber?groupid=' + id
 				$.get(url, (data, status) => {
 					let dataObject = data.data
+					console.log(dataObject);
+					
 					this.groupMemberMessage = dataObject.list
 				})
 				this.idGroupLabel = id //设置id
@@ -452,7 +454,7 @@
 						this.sendGroupMessage.sendtime = 'Jul 18, 2020 1:45:47 PM'
 					}
 				}
-				console.log(this.sendGroupMessage)
+				// console.log(this.sendGroupMessage)
 			},
 
 			getFriendsMessage() {
@@ -465,7 +467,7 @@
 					// console.log(this.friends)
 					for (let item of this.friends) {
 						for (let f of item.users) {
-							console.log('friends+'+f);
+							// console.log('friends+'+f);
 							
 							this.friendsNotGroup = this.friendsNotGroup.concat(f)
 						}
@@ -526,8 +528,8 @@
 
   #icon-my-gengduo {
     position: absolute;
-    right: 50px;
-    top: 40px;
+    right: 20px;
+    top: 0px;
     font-size: 40px;
   }
 
@@ -535,14 +537,6 @@
     cursor: pointer;
   }
 
-
-  .wp35 {
-    width: 35%;
-  }
-
-  .wp50 {
-    width: 50%;
-  }
 
   .hInherit {
     height: inherit;
@@ -562,7 +556,7 @@
   }
 
   #div1 {
-    width: 50%;
+    width: 63%;
     height: 300px;
     float: left;
   }
@@ -573,7 +567,11 @@
     float: right;
     border: 1px solid red;
     position: relative;
-  }
+	}
+	
+	.top_name{
+		background-color: rgb(245, 245, 245)
+	}
 
   .clear {
     clear: both;

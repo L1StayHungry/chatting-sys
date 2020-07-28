@@ -19,51 +19,69 @@
   color: green;
 }
 
+/* 收藏 */
 .icon-shoucang:before {
   content: "\e604";
+  color: rgb(58, 180, 180)
 }
 
+/* 手机 */
 .icon-shouji:before {
   content: "\e6c7";
+  color: rgb(58, 180, 180)
 }
 
 .icon-yduizhengquekongxin:before {
   content: "\e6a8";
+  color: rgb(58, 180, 180)
 }
 
+/* 加号 */
 .icon-jia:before {
   content: "\e632";
 }
 
+/* 聊天 */
 .icon-liaotian:before {
   content: "\e60f";
+  color: rgb(58, 180, 180)
 }
 
+/* 文件 */
 .icon-wenjian:before {
   content: "\e662";
+  color: rgb(58, 180, 180)
 }
 
 .icon-kongxingou:before {
   content: "\e789";
+  color: rgb(58, 180, 180)
 }
 
+/* 用户 */
 .icon-yonghu:before {
   content: "\e607";
+  color: rgb(58, 180, 180)
 }
 
 .icon-gengduo:before {
   content: "\e696";
+  color: rgb(58, 180, 180)
 }
 
 .icon-search:before {
   content: "\e602";
+  color: rgb(58, 180, 180)
 }
 
 .icon-gengduo1:before {
   content: "\e8af";
+  color: rgb(58, 180, 180);
+  font-size: 30px;
 }
 
 .icon-kanyikan:before {
   content: "\e60c";
+  color: rgb(58, 180, 180)
 }
 

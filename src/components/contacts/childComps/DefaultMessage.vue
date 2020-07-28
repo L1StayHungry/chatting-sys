@@ -7,7 +7,7 @@
       </div>
     </top-name>
     <div>
-      <img src="@/assets/imgs/people_fill.svg" alt="">
+      <img src="@/assets/imgs/people_fill.svg" alt="" style="width: 150px;">
     </div>
   </div>
 </template>

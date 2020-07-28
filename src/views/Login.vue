@@ -1,10 +1,6 @@
 <template>
   <div style="width: inherit;height: inherit;">
-    <div style="width: 300px;height: 400px;
-        border: 1px solid #cccccc;
-        position: relative;
-        left: 50%;
-        top: 50px;">
+    <div  class="login" style="">
       <h1 style="position: absolute;left: 20px;top:20px;">登录界面</h1>
       <el-input type="input" placeholder="输入账号" v-model="user.id" style="width: 200px;
             position: absolute;left: 20px;top: 120px;">
@@ -104,9 +100,21 @@
 	}
 </script>
 
-<style>
+<style scoped>
+	.login{
+		background-color: #cccccc;
+		width: 300px;
+		height: 400px;
+
+		/* border: 1px solid #cccccc; */
+		position: absolute;
+
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+	}
   .span_1 {
-    color: #cccccc;
+    color: #2b0606;
     position: absolute;
     left: 150px;
     top: 220px;

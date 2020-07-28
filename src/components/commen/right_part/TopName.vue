@@ -21,16 +21,21 @@
     /* 上下居中，撑起div */
     line-height: 50px;
     text-align: left;
+    display:flex;
 
-    /* 阴影 */
-    box-shadow: 0 1px 1px rgba(39, 12, 12, 0.2)
+    border-bottom: 1px solid #cccccc;
+
   }
 
   .left{
-    margin-left: 30px;
+    padding-left: 30px;
+    width: 70%;
   }
 
   .right{
-    float:right;
+    /* width: 20%; */
+    /* position: relative; */
+    flex: 1;
+    /* float:right; */
   }
 </style>

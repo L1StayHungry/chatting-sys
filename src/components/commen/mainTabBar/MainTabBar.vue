@@ -1,9 +1,9 @@
 <!-- 左侧主菜单 -->
 <template>
-  <div class="fl wp15 hInherit relative" style="background-color: rgb(42,42,42);">
+  <div class="fl wp7 hInherit relative" style="background-color: rgb(42,42,42);">
     <ul id="ul1">
       <!-- 个人头像 -->
-      <li style="margin-top:20px"><a><img width="60" :src="get_user_avatar" alt="无法显示" style="font-size: 4px"></a></li>
+      <li style="margin-top:20px"><a><img width="40px" :src="get_user_avatar" alt="无法显示" style="font-size: 4px"></a></li>
 
       <li style="margin-top:20px">
         <a @click="toChatList()">
@@ -12,16 +12,16 @@
       </li>
 
       <li style="margin-top:20px">
-        <a @click="toFriendList">
+        <a @click="toFriendList()">
           <span class="iconfont icon-yonghu"></span>
         </a>
       </li>
       <li style="margin-top:20px">
-        <a @click="toOther"><span class="iconfont icon-shoucang"></span>
+        <a @click="toOther()"><span class="iconfont icon-shoucang"></span>
         </a>
       </li>
       <li style="margin-top:20px">
-        <a @click="chat"></a>
+        <a @click="chat()"></a>
         <span class="iconfont icon-wenjian"></span></li>
       <li style="margin-top:20px">
         <span class="iconfont icon-kanyikan"></span></li>
@@ -30,13 +30,13 @@
     <ul style="margin-top:40px">
 
       <li style="margin-top:80px">
-        <a @click="chat">
+        <a @click="chat()">
           <span class="iconfont icon-shouji"></span>
         </a>
       </li>
 
       <li style="margin-top:20px">
-        <a href="#" @click="chat">
+        <a href="#" @click="chat()">
           <span class="iconfont icon-gengduo"></span>
         </a>
       </li>
@@ -73,7 +73,7 @@
 
 			},
 			toChatList: function () {
-				this.$router.push('/homePage/ChatList')
+				this.$router.push({path: '/homePage/ChatList'})
 			},
 			toFriendList: function () {
 				this.$router.push({path: '/homePage/FriendList'})
