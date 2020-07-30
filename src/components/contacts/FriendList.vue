@@ -13,6 +13,7 @@
 							:pull-up-load="true"
 							:data="[]"
 							:probe-type="3"
+               v-if="reFresh"
 							>
 				<!-- :pull-down-refresh="true" -->
         <div>
@@ -44,10 +45,10 @@ import Search from "@/components/commen/search/Search"
 
 import Scroll from "@/components/commen/scroll/Scroll";
 
-import AddFriend from "@/components/contacts/childComps/AddNewFriend"
+import AddFriend from "@/components/contacts/childComps/addNewFriend/AddNewFriend"
 import Friend from "@/components/contacts/childComps/Friend";
 import Group from "@/components/contacts/childComps/Group";
-import CurrentMessage from "@/components/contacts/childComps/CurrentMessage";
+import CurrentMessage from "@/components/contacts/childComps/messageDetail/CurrentMessage";
 
 export default {
   components: {
@@ -65,6 +66,7 @@ export default {
   },
   data() {
     return {
+      reFresh:true,
       friends: [],//好友信息列表
       singleGroup: [
         {
@@ -101,7 +103,15 @@ export default {
   computed: {},
   mounted() {
     this.getFriendMessage();
-  }
+    this.$bus.$on('updateFriendList',()=>{
+      window.location.reload(true)
+      // window.reload();
+      // this.reFresh= false;
+      // this.$nextTick(()=>{
+      //   this.reFresh = true
+      // })
+    });
+  },
 };
 </script>
 <style scoped>

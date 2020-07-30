@@ -1,12 +1,13 @@
 <!-- 右侧框：具体信息显示 -->
 <template>
-  <div :is="currentView" :user-message="friend" :group-message="groud"></div>
+  <div :is="currentView" :user-message="friend" :group-message="groud" :msg="received_addFriendMessage"></div>
 </template>
 
 <script>
-  import GroupMessage from "@/components/contacts/childComps/GroupMessage";
-  import FriendMessage from "@/components/contacts/childComps/FriendMessage";
-  import DefaultMessage from "@/components/contacts/childComps/DefaultMessage";
+  import GroupMessage from "./GroupMessage";
+  import FriendMessage from "./FriendMessage";
+  import AddFriendMessage from "./AddFriendMessage";
+  import DefaultMessage from "./DefaultMessage";
 
   export default {
     name:'CurrentMessage',
@@ -16,13 +17,16 @@
     components: {
       GroupMessage,
       FriendMessage,
+      AddFriendMessage,
       DefaultMessage,
     },
     data() {
       return {
         friend: {},
         groud: {},
-        currentView: 'defaultMessage'
+        received_addFriendMessage: [],
+
+        currentView: 'AddFriendMessage'
       }
     },
     computed: {},
@@ -46,14 +50,13 @@
         
         this.currentView = GroupMessage;
       })
+
+      this.$bus.$on('showNewFriend',(received_addFriendMessage)=>{
+        this.received_addFriendMessage = received_addFriendMessage;
+
+        this.currentView = AddFriendMessage;
+      })
     },
-    beforeCreate() {},
-    beforeMount() {},
-    beforeUpdate() {},
-    updated() {},
-    beforeDestroy() {},
-    destroyed() {},
-    activated() {},
   }
 </script>
 

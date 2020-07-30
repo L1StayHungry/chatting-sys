@@ -14,7 +14,7 @@ Vue.prototype.$bus = new Vue()
 Vue.use(ElementUI)
 Vue.config.productionTip = false
 
-new Vue({
+export default new Vue({
 	router,
 	store,
 	render: h => h(App)

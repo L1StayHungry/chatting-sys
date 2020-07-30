@@ -31,7 +31,7 @@
 		}
 	}
 </script>
-<style>
+<style scoped>
   .friendCell {
     position: relative;
     height: 50px;

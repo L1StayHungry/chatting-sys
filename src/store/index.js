@@ -10,6 +10,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   // state是vuex的唯一数据源，是所有组件的公共data
   state: {
+    ws: null,
     // 所登陆用户信息
     userInfo:{}
   },
