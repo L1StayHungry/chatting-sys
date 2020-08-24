@@ -1,19 +1,11 @@
-# chatting-sys
+## IMChat在线聊天系统(前端)
 
-## Project setup
-```
-yarn install
-```
+### 基于vue-cli3 + vue-router + vuex + element-ui + webpack4 技术栈
 
-### Compiles and hot-reloads for development
+
+### 后台系统地址
 ```
-yarn serve
+https://github.com/zpsGo/imchat.git
 ```
 
-### Compiles and minifies for production
-```
-yarn build
-```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
