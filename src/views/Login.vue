@@ -2,7 +2,7 @@
   <div style="width: inherit;height: inherit;">
     <div  class="login" style="">
       <h1 style="position: absolute;left: 20px;top:20px;">登录界面</h1>
-      <el-input type="input" placeholder="输入账号" v-model="user.id" style="width: 200px;
+      <el-input type="input" placeholder="输入邮箱" v-model="user.email" style="width: 200px;
             position: absolute;left: 20px;top: 120px;">
       </el-input>
       <el-input type="password" placeholder="输入密码" v-model="user.pass" style="width: 200px;
@@ -36,12 +36,14 @@
 </template>
 
 <script>
+	import { Login } from '@/http/api'
+
 	export default {
 		data() {
 			return {
 				user: {
-					id: '',
-					pass: ''
+					email:'',
+					pass: '',
 				},
 				registerUserMessage: {
 					userName: '',
@@ -56,27 +58,43 @@
 		},
 		methods: {
 			login: function () {
-				if (this.user.id == '' || this.user.password == '') {
-					alert('输入完整的用户名和密码');
+				if (this.user.email == '' || this.user.password == '') {
+					alert('输入完整的邮箱和密码');
 					return;
 				}
-				console.log(this.url)
+				console.log(this.user);
 
-				$.post(this.url, this.user, (data, status) => {
-					if (data == 1) {
-						sessionStorage.setItem('isLogin', '1')
-						sessionStorage.setItem('userId', this.user.id)
-						this.$router.push('/homePage');
-					} else {
-						sessionStorage.setItem('isLogin', '0')
-						alert('密码错误')
-					}
+				// $.post(this.url, this.user, (data, status) => {
+					
+				// 	if (data.code == 200) {
+				// 		let thisdata = data.data;
+				// 		sessionStorage.setItem('isLogin', '1')
+				// 		sessionStorage.setItem('userId', thisdata.id)
+				// 		sessionStorage.setItem('userEmail', this.user.email)
+				// 		this.$router.push('/homePage');
+				// 	} else {
+				// 		sessionStorage.setItem('isLogin', '0')
+				// 		alert('密码错误')
+				// 	}
+				// })
+
+				Login(this.user).then(res => {
+						if (res.code == 200) {
+							let thisdata = res.data;
+							sessionStorage.setItem('isLogin', '1')
+							sessionStorage.setItem('userId', thisdata.id)
+							sessionStorage.setItem('userEmail', this.user.email)
+							this.$router.push('/homePage');
+						} else {
+							sessionStorage.setItem('isLogin', '0')
+							alert('密码错误')
+						}
 				})
 			},
 			registerSuccess: function () {
 				let registerUrl = 'http://localhost:8080/register'
 				if (this.registerUserMessage.userName == '') {
-					alert('输入用户账户');
+					alert('输入用户昵称');
 					return;
 				}
 				if (this.registerUserMessage.password == '' || this.registerUserMessage.confirmPassword == '') {

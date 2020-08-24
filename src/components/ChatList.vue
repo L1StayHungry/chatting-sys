@@ -364,11 +364,12 @@
 
 				// this.elDialogVisiable = true
 				$.get(url, (data, status) => {
-          let dataJson = data.data.mineResult;
-					this.friends = dataJson.friend;
-					// console.log(this.friends)
+					// console.log();
+					
+          let dataJson = JSON.parse(data.data)
+					this.friends = dataJson.data.friend;
 					for (let item of this.friends) {
-						for (let f of item.users) {
+						for (let f of item.list) {
 							// console.log('friends+'+f);
 							
 							this.friendsNotGroup = this.friendsNotGroup.concat(f)

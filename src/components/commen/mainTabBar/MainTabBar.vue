@@ -89,9 +89,12 @@
         
         $.get(url, (data, status) => {
           let dataJson = data.data;
+          dataJson = JSON.parse(dataJson);
+          // console.log(dataJson.data);
+          
 					if (dataJson.code == 0) {
             // this.mine = data.data.mineResult.mine
-						this.$store.commit('setUserInfo',dataJson.mineResult)
+						this.$store.commit('setUserInfo',dataJson.data)
             // console.log(this.$store.state.userInfo);
             this.mine = this.$store.getters.userInfoMine;
 					}
