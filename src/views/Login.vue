@@ -51,7 +51,6 @@
 					confirmPassword: '',
 					email: ''
 				},
-				url: 'http://localhost:8080/user/login',
 				registerVisible: false,
 				formLabelWidth: '120px'
 			}
@@ -62,8 +61,6 @@
 					alert('输入完整的邮箱和密码');
 					return;
 				}
-				console.log(this.user);
-
 				// $.post(this.url, this.user, (data, status) => {
 					
 				// 	if (data.code == 200) {
@@ -77,7 +74,6 @@
 				// 		alert('密码错误')
 				// 	}
 				// })
-
 				Login(this.user).then(res => {
 						if (res.code == 200) {
 							let thisdata = res.data;

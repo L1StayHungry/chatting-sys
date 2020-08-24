@@ -101,6 +101,8 @@
 	import LeftList from "./AddGroupComponents/LeftList";
 	import RightCell from "./AddGroupComponents/RightCell";
 
+	import {getUserAndGroupMessage} from '@/http/api'
+
 	import TopName from "@/components/commen/right_part/TopName";
 	import Search from "@/components/commen/search/Search"
 	
@@ -280,18 +282,22 @@
 				}
 				this.sendMessageToWS.dataMap.context = ''
 			},
-			getUserAndGroupMessage: function () {
-				let url = 'http://localhost:8080/user/mine?userid=' + sessionStorage.getItem('userId')
-				$.get(url, (data, status) => {
-					let dataJson = data.data
+			this_getUserAndGroupMessage(){
+				getUserAndGroupMessage( sessionStorage.getItem('userId') ).then(res => {
+					let dataJson = JSON.parse(res.data);
 					if (dataJson.code == 0) {
 						//获取用户信息
-						for (let item of dataJson.mineResult.friend) {
+						for (let item of dataJson.data.friend) {
 							// .concat 连接两数组
-							this.userMessage = this.userMessage.concat(item.users)
+							this.userMessage = this.userMessage.concat(item.list)
+
+							for (let f of item.list) {
+								// console.log('friends+'+f);
+								this.friendsNotGroup = this.friendsNotGroup.concat(f)
+							}
 						}
 						//获取群组信息
-						for (let item of dataJson.mineResult.group) {
+						for (let item of dataJson.data.group) {
 							// console.log('groupMessage')
 							// console.log(item)
 							this.groupMessage = this.groupMessage.concat(item)
@@ -301,7 +307,7 @@
 						this.groupMessage.shift()
 						// console.log('好有对象'+this.userMessage)
 						//获取本人信息
-						this.myMessage = dataJson.mineResult.mine
+						this.myMessage = dataJson.data.mine
 					}
 				})
 			},
@@ -359,24 +365,6 @@
 				// console.log(this.sendGroupMessage)
 			},
 
-			getFriendsMessage() {
-				let url = 'http://localhost:8080/user/mine?userid=' + sessionStorage.getItem('userId')
-
-				// this.elDialogVisiable = true
-				$.get(url, (data, status) => {
-					// console.log();
-					
-          let dataJson = JSON.parse(data.data)
-					this.friends = dataJson.data.friend;
-					for (let item of this.friends) {
-						for (let f of item.list) {
-							// console.log('friends+'+f);
-							
-							this.friendsNotGroup = this.friendsNotGroup.concat(f)
-						}
-					}
-				})
-			},
 			getMsg: function (id) {  //获取到子组件传来的信息
 				let isHas = false
 				let ob = this.friendsNotGroup
@@ -446,9 +434,7 @@
 			this.$bus.$on('get_a_groudChat',(msg)=>{
 				this.updateSendAndReceivedMessage_groudChat(msg);
 			});
-			this.getUserAndGroupMessage();
-			this.getFriendsMessage();
-			
+			this.this_getUserAndGroupMessage();
 		}
 	}
 </script>
