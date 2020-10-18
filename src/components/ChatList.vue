@@ -13,7 +13,7 @@
         <!--                好友聊天对话单元 -->
         <div @click="changeChat($event)" :id="item.id" style="width: 100%;height: 75px;position: relative;"
              v-for="item of userMessage" :key="item.id">
-          <img :src="'http://localhost:8080'+item.avatar" width="60"
+          <img :src="baseurl + item.avatar" width="60"
                style="position: absolute;left: 10px;top: 10px;"
                alt="加载失败">
 					<!-- 红点 -->
@@ -31,7 +31,7 @@
         <!--                群组对话单元-->
         <div @click="changeGroupChat($event)" :id="item.group_id" style="width: 100%;height: 75px;position: relative;"
              v-for="item of groupMessage" :key="item.group_id+1">
-          <img :src="'http://localhost:8080'+item.avatar" width="60"
+          <img :src="baseurl + item.avatar" width="60"
                style="position: absolute;left: 10px;top: 10px;"
                alt="加载失败2">
           <span
@@ -128,6 +128,7 @@
 		data() {
 			return {
 				ws: null,
+				baseurl : this.$store.state.BASEURL,
 				sendMessageToWS: {
 					type: 'singleChat',
 					dataMap: {

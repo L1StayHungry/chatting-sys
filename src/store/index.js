@@ -11,6 +11,7 @@ export default new Vuex.Store({
   // state是vuex的唯一数据源，是所有组件的公共data
   state: {
     ws: null,
+    BASEURL: 'http://localhost:8080',
     // 所登陆用户信息
     userInfo:{}
   },
