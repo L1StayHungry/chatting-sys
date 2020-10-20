@@ -3,6 +3,7 @@ import QS from 'qs';
 
 export const instance = Axios.create({
     baseURL: 'http://localhost:8080',
+    // baseURL: 'http://106.52.153.159:8080',
     timeout: 10000,
   })
 
@@ -12,7 +13,10 @@ export const instance = Axios.create({
       instance({
         url,
         method: 'get',
-        params: params
+        params: params,
+        headers : {
+          // 'Content-Type': 'application/json;charset=UTF-8'
+        }
       })
         .then(res => {
           resolve(res.data)
@@ -29,7 +33,11 @@ export const instance = Axios.create({
       instance({
         url,
         data: QS.stringify(data),
-        method: 'post'
+        method: 'post',
+        headers : {
+          // 'Content-Type': 'application/json;charset=UTF-8',
+          // 'Access-Control-Allow-Origin':'*',
+        }
       })
         .then(res => {
           resolve(res.data)

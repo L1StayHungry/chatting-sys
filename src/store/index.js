@@ -12,6 +12,8 @@ export default new Vuex.Store({
   state: {
     ws: null,
     BASEURL: 'http://localhost:8080',
+    // BASEURL: 'http://106.52.153.159:8080',
+
     // 所登陆用户信息
     userInfo:{}
   },
