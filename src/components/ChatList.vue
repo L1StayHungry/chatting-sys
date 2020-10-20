@@ -388,16 +388,19 @@
 
 			// 接收到单聊信息
 			updateSendAndReceivedMessage_singleChat(msg){
+
 				let received_msg = {}
 				received_msg.id = msg.dataMap.fromid;
+				console.log(this.userMessage,'this.userMessage');
+				
 				for (let item of this.userMessage) {
 					if (item.id == received_msg.id) {
 						received_msg.username = item.username
 						received_msg.context = msg.dataMap.context
 						received_msg.messageType = false
 						received_msg.avatar = item.avatar
+						this.sendAndReceivedMessage = this.sendAndReceivedMessage.concat(received_msg)
 					}
-					this.sendAndReceivedMessage = this.sendAndReceivedMessage.concat(received_msg)
 				}
 			},
 			// 接收到群聊信息
@@ -412,10 +415,10 @@
           if (parseInt(item.id) == parseInt(received_msg.id)) {
             received_msg.username = item.username
             received_msg.avatar = item.avatar
-            window.console.log('进入遍历群成员')
+						window.console.log('进入遍历群成员')
+        		this.sendAndReceivedGroupMessage = this.sendAndReceivedGroupMessage.concat(received_msg)
           }
         }
-        this.sendAndReceivedGroupMessage = this.sendAndReceivedGroupMessage.concat(received_msg)
 			}
 		},
 		watch: {
